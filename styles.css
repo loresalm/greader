@@ -1,0 +1,148 @@
+body 
+{
+    background: #E3E2DF
+}
+
+#background-div{
+    position: relative;
+    margin: 2% 10% auto;
+    height: auto;
+    background: #E3E2DF;
+    height: auto;
+    padding: 10px;
+}
+#title-div{
+    margin: 4% 3% auto; 
+    position: relative;
+    box-sizing: border-box; 
+    padding: 10px;
+    height: auto;
+    font-size: 40px;
+    color: #5D001E;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 900; 
+    text-align: center;
+    /*background: rgb(114, 34, 218);*/
+}
+
+#put-data-div{
+    margin: 4% 3% auto; 
+    position: relative;
+    box-sizing: border-box; 
+    padding: 10px;
+    height: auto;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 10; 
+    /*background: #EE4C7C*/  
+}
+
+#add-button-div{
+    margin: 3% 3% auto; 
+    position: relative;
+    box-sizing: border-box; 
+    padding: 10px;
+    height: auto;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 10; 
+    text-align: center;
+    /*background: rgb(189, 192, 31); */
+
+}
+
+input[name="btnAddSubjImp"] {
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    text-align: center;
+    transition-duration: 0.5s;
+    background-color: white; 
+    color:  rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
+  }
+  
+input[name="btnAddSubjImp"]:hover {
+    background-color: rgb(255, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+#display-block-div{
+    margin: 2% 3% auto; 
+    position: relative;
+    box-sizing: border-box; 
+    padding: 10px;
+    height: auto;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 10; 
+    background: #9A1750;
+
+}
+#block-title-div{
+    margin: 2% 3% auto; 
+    position: relative;
+    box-sizing: border-box; 
+    padding: 10px;
+    height: auto;
+    color: #EE4C7C;
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 10; 
+    /*background: rgb(139, 93, 40);*/
+    text-align: center; 
+
+}
+.blk-class{
+    position: relative;
+    margin: 2% 3% auto; 
+    box-sizing: border-box; 
+    padding: 10px;
+    width: 200px;
+    height: auto;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 1000; 
+    background: #E3AFBC;
+    text-align: center;
+    display: inline-block;
+    vertical-align:top;
+    
+
+}
+
+.exm-class{
+    margin: 3% 1% auto;
+    position: relative;
+    box-sizing: border-box; 
+    padding: 10px;
+    width: 180px;
+    height: auto;
+    color: rgb(0, 0, 0);
+    font-size: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 1000; 
+    background: #EE4C7C
+}
+
+input[name="btnNote"] {
+    margin: 3% 1% auto;
+    position: relative;
+    font-size: 10px;
+    padding: 0px;
+    width: 10px;
+    text-align: center;
+    transition-duration: 0.5s;
+    background-color: white; 
+    color:  rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
+  }
+  
+input[name="btnNote"]:hover {
+    background-color: rgb(255, 255, 0);
+    color: rgb(0, 0, 0);
+}
