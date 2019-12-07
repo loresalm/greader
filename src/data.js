@@ -15,8 +15,41 @@ function calculateGrade(mid){
     for(var i= 0; i < mid.length; i++){
         noteEx+= (mid[i][1]/100)*mid[i][2]
     }
+    var noteInt = Math.floor(noteEx)
+    var noteDec = noteEx- Math.floor(noteEx)
+    if(noteDec> 0.5){
+        if(noteDec> 0.75){
+            noteDec = noteDec- 0.75
+            if(noteDec< 0.125){
+                noteEx= noteInt+ 0.75
+            }else{
+                noteEx= noteInt+ 1
+            }
+        }else{
+            noteDec = noteDec- 0.5
+            if(noteDec< 0.125){
+                noteEx= noteInt+ 0.5
+            }else{
+                noteEx= noteInt+ 0.75
+            }
+        }
+    } else{
+        if(noteDec> 0.25){
+            noteDec = noteDec- 0.25
+            if(noteDec< 0.125){
+                noteEx= noteInt+ 0.25
+            }else{
+                noteEx= noteInt+ 0.5
+            }
+        }else{
+            if(noteDec< 0.125){
+                noteEx= noteInt 
+            }else{
+                noteEx= noteInt+ 0.25
+            }
+        }
+    }
 
-    // approssimare note giusto (0.25)
     return noteEx
 }
 
@@ -33,25 +66,28 @@ function calculateGradeBlock(exm){
 
 
 const EXAM= {
-    exams: [[],[],[],[],[]],
+    exams: [],
     blocks: [],
     addExam: function(){ 
-            if (!(this.blocks.includes(EXAM_DATA.block))){
-                if (this.blocks.length > 5) {
-                false
-                return
-            } else {
-                this.blocks.push(EXAM_DATA.block)
-                this.blocks_grades.push(4)
-                }
-    
+        if (!(this.blocks.includes(EXAM_DATA.block))){
+            
+            this.blocks.push(EXAM_DATA.block)
+            this.blocks_grades.push(4)
+            this.exams.push([])
+            this.exams_grades.push([])
+            
         } 
         this.exams[this.blocks.indexOf(EXAM_DATA.block)].push(Object.assign({}, EXAM_DATA))
         this.exams_grades[this.blocks.indexOf(EXAM_DATA.block)].push([calculateGrade(EXAM_DATA.midterm), Number(EXAM_DATA.coeff)])
-        return true
+        this.blocks_grades[this.blocks.indexOf(EXAM_DATA.block)] = calculateGradeBlock(this.exams_grades[this.blocks.indexOf(EXAM_DATA.block)])
+    
     },
-    exams_grades: [[],[],[],[],[]],
+    exams_grades: [],
     updateGrade: function(pos1, pos2){
+        if(this.exams[pos1].length == 0){
+            this.blocks_grades[pos1] = 0
+            return
+        }
         this.exams_grades[pos1][pos2][0]= calculateGrade(this.exams[pos1][pos2].midterm)
         this.blocks_grades[pos1] = calculateGradeBlock(this.exams_grades[pos1])
     },

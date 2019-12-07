@@ -50,10 +50,7 @@ function createMidChoose() {
     }
     ChooseMidDiv = document.createElement("Div")
 
-    if(NbMidImp.value > 6){
-        alert("Too many midterm...")
-        return
-    }
+
     for(var i = 0; i <NbMidImp.value; i++){
         var nameMid= inpt("nameMid"+ i, "NameMid",  ChooseMidDiv,"text")
         var percMid= inpt("midPer"+ i, "%", ChooseMidDiv,"number")
@@ -69,10 +66,9 @@ btnAddSubj.setAttribute("value", "ADD")
 btnAddSubj.setAttribute("onclick", "addSubject()")
 BackgroundDiv.appendChild(AddButtonDiv)
 
-BackgroundDiv
 var checkNbblock= 0
 function addSubject(){
-
+    
     if(!(isNaN(BlockImp.value))){
         alert("put block name...")
         return
@@ -88,6 +84,11 @@ function addSubject(){
     }
 
     for(var i = 0; i <NbMidImp.value; i++){
+        if(document.querySelector('input[name=nameMid'+i+']') == null){
+            alert("click number midterm input...")
+            checkPerc = 0
+            return
+        }
         EXAM_DATA.addMd(document.querySelector('input[name=nameMid'+i+']').value, Number(document.querySelector('input[name=midPer'+i+']').value))
         checkPerc+= EXAM_DATA.midterm[i][1]
 
@@ -101,19 +102,12 @@ function addSubject(){
 
     EXAM_DATA.name = ExamNameImp.value
     EXAM_DATA.block = BlockImp.value
-    console.log(CoefImp.value)
     EXAM_DATA.coeff = CoefImp.value
 
-
-
-    if(!(EXAM.addExam(EXAM_DATA.block))){
-        alert("too many blocks...")
-        checkPerc = 0
-        EXAM_DATA.midterm = []
-        return
-    }
+    EXAM.addExam(EXAM_DATA)
 
     updateDisplayBlock()
+
 
     checkPerc = 0
     EXAM_DATA.midterm = []
@@ -158,6 +152,12 @@ function updateDisplayBlock(){
         var blk= document.createElement("Div")
         blk.setAttribute("class", "blk-class");
         DisplayBlockDiv.appendChild(blk)
+
+        var btnCloseBlk = inpt("btnCloseBlkImp", "", blk, "button")
+        btnCloseBlk.setAttribute("value", "x")
+        btnCloseBlk.setAttribute("onclick", "closeBlock("+i+")")
+
+
         var titleBlkP= document.createElement("P")
         titleBlkP.innerHTML= EXAM.blocks[i]+ " mean ["+EXAM.blocks_grades[i]+"]"
         blk.appendChild(titleBlkP)
@@ -171,6 +171,11 @@ function updateDisplayBlock(){
             exmDiv.setAttribute("class", "exm-class");
             blk.appendChild(exmDiv)
 
+            var btnCloseExm = inpt("btnCloseExm", "", exmDiv, "button")
+            btnCloseExm.setAttribute("value", "x")
+            btnCloseExm.setAttribute("onclick", "closeExam("+i+","+j+")")
+
+
             var titleExmP = document.createElement("P")
             titleExmP.innerHTML= EXAM.exams[boxIndex][j].name +" grade ["+EXAM.exams_grades[boxIndex][j]+"]"
             exmDiv.appendChild(titleExmP)
@@ -178,10 +183,29 @@ function updateDisplayBlock(){
             for(var x = 0; x < EXAM.exams[boxIndex][j].midterm.length; x++){
                 createChangeGrade(exmDiv, EXAM.exams[boxIndex][j].midterm[x], i, j, x)
             }
+            EXAM.updateGrade(i, j)
         } 
     }
 }
 
+function closeBlock(idx){
+    
+    EXAM.exams.splice(idx, 1);
+    EXAM.blocks.splice(idx, 1);
+    EXAM.exams_grades.splice(idx, 1);
+    updateDisplayBlock()
+    return
+    
+}
+function closeExam(idxB, indxE){
+
+    EXAM.exams[idxB].splice(indxE, 1);
+    EXAM.exams_grades[idxB].splice(indxE, 1);
+    EXAM.updateGrade(idxB, 0)
+    updateDisplayBlock()
+    return
+    
+}
 
 
 function createChangeGrade(exmDiv, nameMidPerNt, pos1, pos2, pos3){
@@ -190,18 +214,20 @@ function createChangeGrade(exmDiv, nameMidPerNt, pos1, pos2, pos3){
     exmDiv.appendChild(titleMidP)
     
     var noteMidS = document.createElement("span")
+
+    var btnMNote = inpt("btnNote", "", exmDiv, "button")
+    btnMNote.setAttribute("value", "-")
+    btnMNote.setAttribute("onclick", "onClick("+ (-0.25) + "," + pos1+ "," + pos2+ "," +pos3+ ")")
+
+
     noteMidS.innerHTML= nameMidPerNt[2]
     exmDiv.appendChild(noteMidS)
 
     var btnPNote = inpt("btnNote", "", exmDiv, "button")
     btnPNote.setAttribute("value", "+")
     btnPNote.setAttribute("onclick", "onClick("+ 0.25 + "," + pos1+ "," + pos2+ "," +pos3+ ")")
-    var btnMNote = inpt("btnNote", "", exmDiv, "button")
-    btnMNote.setAttribute("value", "-")
-    btnMNote.setAttribute("onclick", "onClick("+ (-0.25) + "," + pos1+ "," + pos2+ "," +pos3+ ")")
-
+   
 }
-
 
 
 function onClick(dir, pos1, pos2, pos3){
